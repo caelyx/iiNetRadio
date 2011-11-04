@@ -80,7 +80,7 @@ def printStationList():
 	print x
 
 def main():
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser(description='Play iiNet Freezone Radio through mpg321.')
     parser.add_argument('station', metavar='S', nargs='?', help='which station to play')
     parser.add_argument('-l', '--list', action='store_true', help='display the list of stations and exit')
     args = parser.parse_args()
