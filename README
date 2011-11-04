@@ -1,7 +1,6 @@
-iiNet Radio 
-
 iiNet provides unmetered access to an icecast server hosted inside their 
 network.  This server proxies many popular internet streaming radio stations.  
+See: http://freezone.iinet.net.au/channels/freezone/music/radio/all
 
 While I really enjoy making use of this service, I don't particularly want to 
 have to use a GUI client to do so. mpg321 is an excellent command-line client, 
@@ -12,4 +11,5 @@ it.
 This script is terribly rudimentary, but it meets my immediate needs. If it's 
 useful to you, I'd love to hear about it. 
 
-This script is released under the GPL. Copyright 2011 Simon Brown
+This script is released under the GPL. 
+Copyright 2011 Simon Brown <github@caelyx.net>
