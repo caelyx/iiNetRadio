@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
-"""iiNet Radio - A script to make it easy to listen to Freezon radio
+"""iiNet Radio - A script to make it easy to listen to Freezone radio
 Copyright Simon Brown, 2011.
+
+You will need to have mpg321 installed in order to make use of this script.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -79,18 +81,30 @@ def printStationList():
     for x in ks:
 	print x
 
-def main():
-    parser = argparse.ArgumentParser(description='Play iiNet Freezone Radio through mpg321.')
-    parser.add_argument('station', metavar='S', nargs='?', help='which station to play')
-    parser.add_argument('-l', '--list', action='store_true', help='display the list of stations and exit')
-    args = parser.parse_args()
+def searchForUniquePrefix(prefix):
+    for k in stations.keys():
+        p_length = len(prefix)
+        if (k[:p_length] == prefix):
+            return (stations[k], k)
+    return (None, None)
 
-    if (args.list): 
-	printStationList()
-    elif (stations.has_key(args.station)):
-	execl('/usr/local/bin/mpg321', '/usr/local/bin/mpg321', stations[args.station])
+def main():
+  parser = argparse.ArgumentParser(description='Play iiNet Freezone Radio through mpg321.')
+  parser.add_argument('station', metavar='S', nargs='?', help='which station to play')
+  parser.add_argument('-l', '--list', action='store_true', help='display the list of stations and exit')
+  args = parser.parse_args()
+
+  if (args.list): 
+      printStationList()
+  elif (stations.has_key(args.station)):
+      execl('/usr/local/bin/mpg321', '/usr/local/bin/mpg321', stations[args.station])
+  else:
+    (stationURL, stationName) = searchForUniquePrefix(args.station)
+    if (stationName):
+        print "Found prefix match; playing station %s\n\n" %stationName
+        execl('/usr/local/bin/mpg321', '/usr/local/bin/mpg321', stationURL)
     else:
-	print "Unknown station."
+        print "Unknown station."
 
 
 if __name__ == "__main__": 
