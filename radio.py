@@ -23,6 +23,9 @@ from os import execl
 import argparse
 from random import shuffle
 
+# Change this to reflect your mpg321 binary's location
+mpg321 = '/usr/local/bin/mpg321'
+
 stations = {}
 stations['abc-classicfm'] = 'http://streams.radio.3fl.net.au:8000/abc-classicfm'
 stations['abc-dig'] = 'http://streams.radio.3fl.net.au:8000/abc-dig'
@@ -100,12 +103,12 @@ def main():
   if (args.list): 
       printStationList()
   elif (stations.has_key(args.station)):
-      execl('/usr/local/bin/mpg321', '/usr/local/bin/mpg321', stations[args.station])
+      execl(mpg321, mpg321, stations[args.station])
   else:
     (stationURL, stationName) = searchForUniquePrefix(args.station)
     if (stationName):
         print "Found prefix match; playing station %s\n\n" %stationName
-        execl('/usr/local/bin/mpg321', '/usr/local/bin/mpg321', stationURL)
+        execl(mpg321, mpg321, stationURL)
     else:
         print "Unknown station."
 
