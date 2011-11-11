@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from os import execl
 import argparse
+from random import shuffle
 
 stations = {}
 stations['abc-classicfm'] = 'http://streams.radio.3fl.net.au:8000/abc-classicfm'
@@ -82,7 +83,9 @@ def printStationList():
 	print x
 
 def searchForUniquePrefix(prefix):
-    for k in stations.keys():
+    ks = stations.keys()
+    shuffle(ks)
+    for k in ks:
         p_length = len(prefix)
         if (k[:p_length] == prefix):
             return (stations[k], k)
