@@ -80,6 +80,7 @@ stations['wazee'] = 'http://streams.radio.3fl.net.au:8000/wazee'
 
 
 def printStationList():
+    print "Please select from the following stations:\n "
     ks = stations.keys()
     ks.sort()
     for x in ks:
@@ -96,11 +97,11 @@ def searchForUniquePrefix(prefix):
 
 def main():
   parser = argparse.ArgumentParser(description='Play iiNet Freezone Radio through mpg321.')
-  parser.add_argument('station', metavar='S', nargs='?', help='which station to play')
-  parser.add_argument('-l', '--list', action='store_true', help='display the list of stations and exit')
+  parser.add_argument('station', metavar='S', nargs='?', help='which station to play.')
+  parser.add_argument('-l', '--list', action='store_true', help='display the list of stations and exit.')
   args = parser.parse_args()
 
-  if (args.list): 
+  if ((args.list) or not (args.station)): 
       printStationList()
   elif (stations.has_key(args.station)):
       execl(mpg321, mpg321, stations[args.station])
