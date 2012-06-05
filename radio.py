@@ -86,14 +86,25 @@ def printStationList():
     for x in ks:
 	print x
 
-def searchForUniquePrefix(prefix):
+def searchForPrefix(prefix):
     ks = stations.keys()
-    shuffle(ks)
+    shuffle(ks) # Randomises; 'difm' will give you a random 'di.fm' station each time. 
     for k in ks:
         p_length = len(prefix)
         if (k[:p_length] == prefix):
             return (stations[k], k)
     return (None, None)
+
+def searchForSubstring(substring): 
+    ks = stations.keys()
+    shuffle(ks)
+    for k in ks: 
+        if substring in k: 
+            return (stations[k], k)
+    return (None, None)
+
+def playURL(url):
+    execl(mpg321, mpg321, url)
 
 def main():
   parser = argparse.ArgumentParser(description='Play iiNet Freezone Radio through mpg321.')
@@ -101,17 +112,30 @@ def main():
   parser.add_argument('-l', '--list', action='store_true', help='display the list of stations and exit.')
   args = parser.parse_args()
 
+  # If list requested or no station specified, print list of known stations.
   if ((args.list) or not (args.station)): 
       printStationList()
-  elif (stations.has_key(args.station)):
-      execl(mpg321, mpg321, stations[args.station])
-  else:
-    (stationURL, stationName) = searchForUniquePrefix(args.station)
-    if (stationName):
-        print "Found prefix match; playing station %s\n\n" %stationName
-        execl(mpg321, mpg321, stationURL)
-    else:
-        print "Unknown station."
+
+  # If the station has been specified in full, play it. 
+  if (stations.has_key(args.station)):
+      playURL(stations[args.station])
+
+  # If the start of a station is specified, play it; if multiple stations share
+  # the same prefix, play one of them at random. 
+  (stationURL, stationName) = searchForPrefix(args.station)
+  if (stationName):
+      print "Found prefix match; playing station %s\n\n" %stationName
+      playURL(stationURL)
+
+  # If part of a station's name is specified, play it; again, choose among
+  # multiple matches at random.
+  (stationURL, stationName) = searchForSubstring(args.station)
+  if (stationName):
+      print "Found substring match; playing station %s\n\n" %stationName
+      playURL(stationURL)
+
+  # If all else fails, fail.
+  print "Unknown station."
 
 
 if __name__ == "__main__": 
