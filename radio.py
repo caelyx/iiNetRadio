@@ -65,6 +65,7 @@ def main():
   # If list requested or no station specified, print list of known stations.
   if ((args.list) or not (args.station)): 
       printStationList()
+      return
 
   # If the station has been specified in full, play it. 
   if (stations.has_key(args.station)):
