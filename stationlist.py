@@ -32,7 +32,7 @@ def buildStationList():
     stations["96FM"] = "http://radio1.internode.on.net:8000/255"
     stations["ABC Classic"] = "http://radio1.internode.on.net:8000/131"
     stations["ABC Country"] = "http://radio1.internode.on.net:8000/133"
-    stations["ABC Dig"] = "http://radio1.internode.on.net:8000/132"
+    stations["ABC Double J"] = "http://radio1.internode.on.net:8000/132"
     stations["ABC Jazz"] = "http://radio1.internode.on.net:8000/154"
     stations["ABC NewsRadio"] = "http://radio1.internode.on.net:8000/155"
     stations["ABC Radio Extra"] = "http://radio1.internode.on.net:8000/167"
