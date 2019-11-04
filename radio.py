@@ -38,18 +38,18 @@ def printStationList():
 
 def searchForPrefix(prefix):
     ks = stations.keys()
-    shuffle(ks) # Randomises; 'difm' will give you a random 'di.fm' station each time. 
+    shuffle(ks) # Randomises; 'difm' will give you a random 'di.fm' station each time.
     for k in ks:
         p_length = len(prefix)
         if (k[:p_length] == prefix):
             return (stations[k], k)
     return (None, None)
 
-def searchForSubstring(substring): 
+def searchForSubstring(substring):
     ks = stations.keys()
     shuffle(ks)
-    for k in ks: 
-        if substring in k: 
+    for k in ks:
+        if substring in k:
             return (stations[k], k)
     return (None, None)
 
@@ -63,16 +63,16 @@ def main():
   args = parser.parse_args()
 
   # If list requested or no station specified, print list of known stations.
-  if ((args.list) or not (args.station)): 
+  if ((args.list) or not (args.station)):
       printStationList()
       return
 
-  # If the station has been specified in full, play it. 
+  # If the station has been specified in full, play it.
   if (stations.has_key(args.station)):
       playURL(stations[args.station])
 
   # If the start of a station is specified, play it; if multiple stations share
-  # the same prefix, play one of them at random. 
+  # the same prefix, play one of them at random.
   (stationURL, stationName) = searchForPrefix(args.station)
   if (stationName):
       print "Found prefix match; playing station %s\n\n" %stationName
@@ -89,5 +89,5 @@ def main():
   print "Unknown station."
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     main()
